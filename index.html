@@ -217,35 +217,178 @@ section{
     <p>Email: santoshjakune3740@email.com</p>
     <p>Phon NO: 7559198564</p>
 </section> -->
+ 
 
-    <section id="contact">
-    <h2>Contact</h2>
-    
-    <!-- Name field -->
-    <input type="text" 
-           id="name"
-           placeholder="Your Name">
-    <br>
-    
-    <!-- Email field -->
-    <input type="email" 
-           id="email"
-           placeholder="Your Email">
-    <br>
-    
-    <!-- Message field -->
-    <textarea id="message"
-              placeholder="Message"></textarea>
-    <br>
-    
-    <!-- Send Button -->
-    <a href="mailto:santoshjakune3740@gmail.com">
-        <button class="btn secondary">Send Me</button>
-    </a>
-    
+        #contact {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        #contact h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            color: #111;
+            font-family: inherit;
+            transition: border 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #888;
+            background: #fff;
+        }
+
+        .form-group textarea {
+            height: 130px;
+            resize: vertical;
+        }
+
+        .btn-send {
+            display: block;
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 13px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            background: #111;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-send:hover {
+            background: #333;
+        }
+
+        /* Success Message */
+        .success-msg {
+            display: none;
+            margin-top: 1rem;
+            padding: 12px;
+            background: #e6f4ea;
+            color: #2d6a4f;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Error Message */
+        .error-msg {
+            display: none;
+            font-size: 12px;
+            color: #c0392b;
+            margin-top: 4px;
+        }
+
+
+<section id="contact">
+    <h2>Contact Me</h2>
+
+    <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Santosh Jakune">
+        <span class="error-msg" id="name-error">Name is required!</span>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" placeholder="santoshjakune3740@gmail.com">
+        <span class="error-msg" id="email-error">Valid email is required!</span>
+    </div>
+
+    <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Write your message here..."></textarea>
+        <span class="error-msg" id="message-error">Message is required!</span>
+    </div>
+
+    <button class="btn-send" onclick="sendMessage()">Send Message</button>
+
+    <div class="success-msg" id="success-msg">
+        Message sent successfully! I will reply soon.
+    </div>
 </section>
 
 <script>
+    function sendMessage() {
+        // Values घे
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        // Errors लपव
+        document.getElementById('name-error').style.display = 'none';
+        document.getElementById('email-error').style.display = 'none';
+        document.getElementById('message-error').style.display = 'none';
+        document.getElementById('success-msg').style.display = 'none';
+
+        // Validation
+        let isValid = true;
+
+        if (name === '') {
+            document.getElementById('name-error').style.display = 'block';
+            isValid = false;
+        }
+
+        if (email === '' || !email.includes('@')) {
+            document.getElementById('email-error').style.display = 'block';
+            isValid = false;
+        }
+
+        if (message === '') {
+            document.getElementById('message-error').style.display = 'block';
+            isValid = false;
+        }
+
+        // सगळं बरोबर असेल तर
+        if (isValid) {
+            // mailto link open कर
+            window.location.href = `mailto:santoshjakune3740@gmail.com
+                ?subject=Message from ${name}
+                &body=${message}%0A%0AFrom: ${name}%0AEmail: ${email}`;
+
+            // Success message दाखव
+            document.getElementById('success-msg').style.display = 'block';
+
+            // Form clear कर
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        }
+    }
+
+
 // Typing Effect
 const text = "Full Stack Developer | QA Engineer | Power BI Developer";
 let i = 0;
